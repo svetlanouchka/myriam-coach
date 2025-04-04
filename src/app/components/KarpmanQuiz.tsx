@@ -12,29 +12,29 @@ interface Answer {
 
 const questions: Answer[] = [
   {
-    question: "Vous avez enfin dégagé du temps pour aller à votre séance de sport. En plein échauffement, vous recevez un appel urgent du dentiste pour décaler le rendez-vous d’un de ses enfants.",
+    question: "Vous avez enfin dégagé du temps pour aller à votre séance de sport. En plein échauffement, vous recevez un appel urgent du dentiste pour décaler le rendez-vous d'un de ses enfants.",
     options: [
-      "Vous décrochez et répondez : « C’est n’importe quoi ! Vous auriez pu prévenir plus tôt. Vous ne respectez pas du tout mon planning ! »",
-      "Vous décrochez en pensant que « ce n’est pas si grave », qu’il faut gérer immédiatement la situation et que vous reviendrez plus tard. Vous arrangez même la secrétaire au bout du fil.",
-      "Vous décrochez, dépité, vous demandant « pourquoi c’est toujours sur vous que ça tombe ! » Vous compatissez quand même avec la secrétaire au bout du fil.",
-      "Vous êtes occupé pour le moment, votre téléphone reste à sonner dans votre sac, et si c’est si urgent que cela, il rappellera."
+      "Vous décrochez et répondez : « C'est n'importe quoi ! Vous auriez pu prévenir plus tôt. Vous ne respectez pas du tout mon planning ! »",
+      "Vous décrochez en pensant que « ce n'est pas si grave », qu'il faut gérer immédiatement la situation et que vous reviendrez plus tard. Vous arrangez même la secrétaire au bout du fil.",
+      "Vous décrochez, dépité, vous demandant « pourquoi c'est toujours sur vous que ça tombe ! » Vous compatissez quand même avec la secrétaire au bout du fil.",
+      "Vous êtes occupé pour le moment, votre téléphone reste à sonner dans votre sac, et si c'est si urgent que cela, il rappellera."
     ]
   },
   {
-    question: "Vous demandez à votre ado de faire ses devoirs, mais il repousse encore : « Plus tard, t’inquiète pas je gère », alors qu’il est « occupé » sur son téléphone depuis 2h déjà.",
+    question: "Vous demandez à votre ado de faire ses devoirs, mais il repousse encore : « Plus tard, t'inquiète pas je gère », alors qu'il est « occupé » sur son téléphone depuis 2h déjà.",
     options: [
-      "« T’es sérieux là ? Tu vas encore avoir des mauvaises notes si tu continues comme ça ! »",
-      "« Je vais t’aider à t’organiser, on va faire un planning pour que tu ne sois plus pris de cours le dimanche soir. »",
-      "« Je suis épuisée, je n’ai pas le temps de m’occuper de tes devoirs. Pourquoi est-ce que c’est toujours à moi de tout gérer ? »",
-      "Vous pensez : « Il semble repousser constamment ses devoirs. Peut-être qu’il a des difficultés qu’il n’ose pas partager. » Et vous attendez le moment opportun pour en rediscuter."
+      "« T'es sérieux là ? Tu vas encore avoir des mauvaises notes si tu continues comme ça ! »",
+      "« Je vais t'aider à t'organiser, on va faire un planning pour que tu ne sois plus pris de cours le dimanche soir. »",
+      "« Je suis épuisée, je n'ai pas le temps de m'occuper de tes devoirs. Pourquoi est-ce que c'est toujours à moi de tout gérer ? »",
+      "Vous pensez : « Il semble repousser constamment ses devoirs. Peut-être qu'il a des difficultés qu'il n'ose pas partager. » Et vous attendez le moment opportun pour en rediscuter."
     ]
   },
   {
-    question: "Lors d’une réunion de travail, un collègue propose une idée avec laquelle vous n’êtes pas d’accord. Vous estimez que son approche est inefficace.",
+    question: "Lors d'une réunion de travail, un collègue propose une idée avec laquelle vous n'êtes pas d'accord. Vous estimez que son approche est inefficace.",
     options: [
-      "« C’est une idée absurde, ça ne fonctionnera jamais ! Tu ne réfléchis pas avant de proposer quelque chose ? »",
-      "« Je vais reprendre ton idée et l’améliorer. Je vais m’en occuper à ta place, mais ne t’inquiète pas. »",
-      "« Pourquoi est-ce toujours à moi de corriger les mauvaises idées des autres ? J’en ai marre, je suis déjà tellement débordé. »",
+      "« C'est une idée absurde, ça ne fonctionnera jamais ! Tu ne réfléchis pas avant de proposer quelque chose ? »",
+      "« Je vais reprendre ton idée et l'améliorer. Je vais m'en occuper à ta place, mais ne t'inquiète pas. »",
+      "« Pourquoi est-ce toujours à moi de corriger les mauvaises idées des autres ? J'en ai marre, je suis déjà tellement débordé. »",
       "« Je vois que cette idée pourrait poser des défis. Quelles alternatives pouvons-nous explorer pour mieux répondre aux besoins du projet ? »"
     ]
   }

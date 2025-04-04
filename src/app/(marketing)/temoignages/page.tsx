@@ -35,8 +35,8 @@ export default function Testimonials() {
 
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Durée de l'animation en ms
-      once: true, // L'animation ne se joue qu'une seule fois
+      duration: 1000,
+      once: true,
     });
   }, []);
 
@@ -63,17 +63,15 @@ export default function Testimonials() {
           data-aos="fade-up"
         >
           <div className="relative">
-            {/* Témoignage */}
             <div className="font-gotu text-center transition-all duration-500 ease-in-out">
               <p className="text-lg text-gray-600 italic p-10 mb-6">
-                "{testimonials[currentIndex].text}"
+                {`"${testimonials[currentIndex].text}"`}
               </p>
               <p className="text-right text-sm font-semibold text-gray-800">
                 - {testimonials[currentIndex].name}
               </p>
             </div>
 
-            {/* Boutons de navigation */}
             <button
               onClick={prevTestimonial}
               className="absolute left-0 top-1/2 transform -translate-y-1/2 text-primary p-2 rounded-full hover:text-gold"
@@ -88,7 +86,6 @@ export default function Testimonials() {
             </button>
           </div>
 
-          {/* Indicateurs de position */}
           <div className="flex justify-center mt-6 gap-2">
             {testimonials.map((_, index) => (
               <div

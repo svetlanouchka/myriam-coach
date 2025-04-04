@@ -29,7 +29,7 @@ const TypewriterSlogan: React.FC = () => {
     const typeLine = () => {
       if (currentLine >= lines.length) return;
 
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         setDisplayedLines((prevLines) => {
           const newLines = [...prevLines];
           newLines[currentLine] = lines[currentLine].slice(0, index + 1);
