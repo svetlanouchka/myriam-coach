@@ -17,7 +17,7 @@ export default function QuizPage() {
       <div className="relative">
         <KarpmanQuiz onClose={handleClose} />
         <Link href="/" className="absolute top-4 right-4 text-blue-500 hover:underline">
-          Retour à l'accueil
+          Retour
         </Link>
       </div>
     </div>
