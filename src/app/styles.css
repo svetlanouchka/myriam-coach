@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Black+Han+Sans&family=Codystar:wght@300;400&family=Gotu&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Titan+One&display=swap');
+
+@import "tailwindcss";
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+    --font-black-han-sans: 'Black Han Sans', sans-serif;
+    --font-agbalumo: 'Agbalumo', sans-serif;
+    --font-codystar: 'Codystar', sans-serif;
+    --font-gotu: 'Gotu', sans-serif;
+    --font-nunito-sans: 'Nunito Sans', sans-serif;
+    --font-titan-one: 'Titan One', sans-serif;
+
+    --color-primary: #230E6A;
+    --color-gold: #C8AE6A;
+    --color-violet: #321497;
+    --color-dark-violet: #14083d;
+    --color-light-gold: #d6c28f;
+
+}
+
+.arrow-up {
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-5px) translateX(-50%);
+  }
+}
+
+.bg-text {
+  background: linear-gradient(90deg, #9333ea, #d8b4fe); /* Dégradé violet */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.motiver .letter:hover {
+  transform: translateY(-10px);
+  transition: transform 0.5s ease;
+}
+
+.transformer .letter:hover {
+  transform: rotateY(180deg);
+  transition: transform 0.8s ease;
+  color: #d8b4fe; 
+}
+
+.letter {
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+.meilleure-version {
+  display: inline-block;
+  font-family: 'Gotu', sans-serif;
+  color: #C8AE6A;
+}
+
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.meilleure-version {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.5s ease;
+}
+

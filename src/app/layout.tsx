@@ -1,33 +1,32 @@
+// app/layout.tsx
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export const metadata = {
-    title: "Myriam Saï Coach Motivation",
-    description: "Myriam",};
+  title: "Myriam Saï Coach Motivation",
+  description: "Myriam",
+};
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
+  return (
     <html lang="fr">
-        <body>
+      <body className="flex flex-col min-h-screen">
         <header
-        style={{
-            backgroundColor: "black",
-            color: "white",
-            padding: "1rem",}}
-        >
-            <Header />
-        </header>
-        <main>{children}</main>
-        <footer
-        style={{
-            backgroundColor: "black",
+          style={{
+            backgroundColor: "#14083d",
             color: "white",
             padding: "1rem",
-        }}>Footer</footer>
-        </body>
+          }}
+        >
+          <Header />
+        </header>
+        <main className="flex-grow">{children}</main>
+        <Footer />
+      </body>
     </html>
-    );
+  );
 }
