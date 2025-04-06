@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const TypewriterSlogan: React.FC = () => {
@@ -21,7 +21,10 @@ const TypewriterSlogan: React.FC = () => {
   const delayBetweenLines = 500;
 
   const [displayedLines, setDisplayedLines] = useState(["", "", "", ""]);
+  const revealLettersRef = useRef<NodeListOf<Element> | null>(null);
+  const bestVersionRef = useRef<HTMLHeadingElement | null>(null);
 
+  // Effet pour l'animation de frappe
   useEffect(() => {
     let currentLine = 0;
     let index = 0;
@@ -52,10 +55,10 @@ const TypewriterSlogan: React.FC = () => {
     typeLine();
   }, []);
 
+  // Effet pour le halo sur la dernière ligne
   useEffect(() => {
-    // Halo effect sur la dernière ligne après apparition
-    if (displayedLines[3] === lines[3]) {
-      gsap.to(".meilleure-version", {
+    if (displayedLines[3] === lines[3] && bestVersionRef.current) {
+      gsap.to(bestVersionRef.current, {
         boxShadow: "0 0 40px 10px rgba(255, 215, 0, 0.3)",
         duration: 2,
         repeat: -1,
@@ -65,62 +68,95 @@ const TypewriterSlogan: React.FC = () => {
     }
   }, [displayedLines]);
 
-  document.querySelectorAll('.révéler .letter').forEach((letter) => {
-  letter.addEventListener('mouseenter', () => {
-    gsap.to(letter, {
-      textShadow: '0 0 15px 2px rgba(255, 255, 255, 0.8)',
-      color: '#fff',
-      duration: 0.3,
-    });
-  });
-  letter.addEventListener('mouseleave', () => {
-    gsap.to(letter, {
-      textShadow: '0 0 0 rgba(0, 0, 0, 0)',
-      color: '#FFD700',
-      duration: 0.3,
-    });
-  });
-});
+  // Effet pour les interactions au survol (lettres et dernière ligne)
+  useEffect(() => {
+    // Gestion des lettres de "RÉVÉLER"
+    const letters = document.querySelectorAll('.révéler .letter');
+    revealLettersRef.current = letters;
 
-const element = document.querySelector('.meilleure-version');
+    letters.forEach((letter) => {
+      const onMouseEnter = () => {
+        gsap.to(letter, {
+          textShadow: '0 0 15px 2px rgba(255, 255, 255, 0.8)',
+          color: '#fff',
+          duration: 0.3,
+        });
+      };
 
-if (element) {
-  element.addEventListener('mouseenter', () => {
-    gsap.to(element, {
-      textShadow: '0 0 20px rgba(255, 215, 0, 0.8)', // halo doré
-      duration: 1,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-    });
-  });
+      const onMouseLeave = () => {
+        gsap.to(letter, {
+          textShadow: '0 0 0 rgba(0, 0, 0, 0)',
+          color: '#FFD700',
+          duration: 0.3,
+        });
+      };
 
-  element.addEventListener('mouseleave', () => {
-    gsap.killTweensOf(element);
-    gsap.to(element, {
-      textShadow: 'none',
-      duration: 0.5,
+      letter.addEventListener('mouseenter', onMouseEnter);
+      letter.addEventListener('mouseleave', onMouseLeave);
+
+      // Nettoyage des événements
+      return () => {
+        letter.removeEventListener('mouseenter', onMouseEnter);
+        letter.removeEventListener('mouseleave', onMouseLeave);
+      };
     });
-  });
-}
+
+    // Gestion de la dernière ligne
+    const element = bestVersionRef.current;
+    if (element) {
+      const onMouseEnter = () => {
+        gsap.to(element, {
+          textShadow: '0 0 20px rgba(255, 215, 0, 0.8)',
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        });
+      };
+
+      const onMouseLeave = () => {
+        gsap.killTweensOf(element);
+        gsap.to(element, {
+          textShadow: 'none',
+          duration: 0.5,
+        });
+      };
+
+      element.addEventListener('mouseenter', onMouseEnter);
+      element.addEventListener('mouseleave', onMouseLeave);
+
+      // Nettoyage des événements
+      return () => {
+        element.removeEventListener('mouseenter', onMouseEnter);
+        element.removeEventListener('mouseleave', onMouseLeave);
+      };
+    }
+  }, [displayedLines]); // Dépendance sur displayedLines pour s'assurer que les éléments sont rendus
 
   const renderLine = (text: string, idx: number) => {
-    const className = fonts[idx] + " text-4xl md:text-7xl/15 text-gold text-center p-2 transition-opacity duration-500";
+    const className = `${fonts[idx]} text-4xl md:text-7xl/15 text-gold text-center p-2 transition-opacity duration-500`;
 
-    // Pour les 3 premiers mots : on découpe en lettres
     if (idx < 3) {
       return (
-        <h1 key={idx} className={`${className} ${text ? "opacity-100" : "opacity-0"} ${text.toLowerCase()}`}>
+        <h1
+          key={idx}
+          className={`${className} ${text ? "opacity-100" : "opacity-0"} ${text.toLowerCase()}`}
+        >
           {text.split("").map((letter, i) => (
-            <span key={i} className="inline-block mx-0.5 letter">{letter}</span>
+            <span key={i} className="inline-block mx-0.5 letter">
+              {letter}
+            </span>
           ))}
         </h1>
       );
     }
 
-    // Pour la dernière ligne : pas de découpage
     return (
-      <h1 key={idx} className={`${className} ${text ? "opacity-100" : "opacity-0"} meilleure-version`}>
+      <h1
+        key={idx}
+        ref={bestVersionRef}
+        className={`${className} ${text ? "opacity-100" : "opacity-0"} meilleure-version`}
+      >
         {text}
       </h1>
     );
