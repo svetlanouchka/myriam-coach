@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
-import { BsMenuButtonFill } from 'react-icons/bs';
 import Link from 'next/link';
 
 const TypewriterSlogan: React.FC = () => {
