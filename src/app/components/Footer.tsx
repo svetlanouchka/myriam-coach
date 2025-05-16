@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <div className="mb-4">
             {/* Placeholder pour le logo - remplacez par votre image */}
             <Link href="/">
-              <span className="text-2xl font-bold">Myriam Saï, Coach Motivation</span>
+              <span className="text-2xl font-bold">Myriam Saï, Coach en Motivations Profondes</span>
               <img src="/logo_slogan.png" alt="Logo JeuDeMindset" className="w-64 mt-2" />
             </Link>
           </div>
@@ -79,6 +79,21 @@ const Footer: React.FC = () => {
               <FaLinkedin size={24} />
             </a>
           </div>
+          <div>
+            <p className="mt-4 text-sm">
+              Mes certifications :
+            </p>
+            <div className="flex items-center">
+            <div className="mt-2 flex flex-col items-center">
+              <p className="text-sm">Coach certifiée en PNL</p>
+              <img src="/badge certif PNL.png" alt="Logo PNL" className="w-16 h-16 mt-2" />
+              </div>
+              <div className="mt-2 flex flex-col items-center">
+              <p className="text-sm pl-2">Formatrice certifiée SERUM</p>
+              <img src="/Brevet-serum.png" alt="Logo PNL" className="w-16 h-16 mt-2" />
+              </div>
+              </div>
+              </div>
         </div>
       </div>
 

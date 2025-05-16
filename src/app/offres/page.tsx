@@ -13,10 +13,10 @@ const Offres = () => {
     <div className="container mx-auto px-4 py-12 space-y-16">
       {/* Offre 1 */}
       <section data-aos="fade-up" className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl font-extrabold bg-text text-purple-700 mb-6">Mieux se connaître pour mieux avancer</h2>
+        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Mieux se connaître pour mieux avancer</h2>
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
-            <img src="/offre1.jfif" alt="Illustration SERUM" className="w-full h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
+            <img src="/offre1.jfif" alt="Illustration SERUM" className="w-4/6 mx-auto h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="md:w-1/2 text-gray-700">
             <p className="text-lg mb-4">Vous vous sentez bloqué·e et vous avez besoin de comprendre comment vous fonctionnez vraiment ?</p>
@@ -42,10 +42,10 @@ const Offres = () => {
 
       {/* Offre 2 */}
       <section data-aos="fade-up" className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl font-extrabold bg-text text-purple-700 mb-6">Débloquez Votre Situation avec la Méthode SPASA</h2>
+        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Débloquez Votre Situation avec la Méthode SPASA</h2>
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
-            <img src="/offre2.jfif" alt="Illustration SPASA" className="w-full h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
+            <img src="/offre2.jfif" alt="Illustration SPASA" className="w-4/6 mx-auto h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="md:w-1/2 text-gray-700">
             <p className="text-lg mb-4">Vous vous sentez bloqué·e par une décision ou un projet ?</p>
@@ -71,10 +71,10 @@ const Offres = () => {
 
       {/* Offre 3 */}
       <section data-aos="fade-up" className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl font-extrabold bg-text text-purple-700 mb-6">Transform’Actions : 90 jours pour tout changer</h2>
+        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Transform’Actions : 90 jours pour tout changer</h2>
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
-            <img src="/offre3.jfif" alt="Illustration Transform’Actions" className="w-full h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
+            <img src="/offre3.jfif" alt="Illustration Transform’Actions" className="w-4/6 mx-auto h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="md:w-1/2 text-gray-700">
             <p className="text-lg mb-4">Marre des méthodes sans résultats durables ?</p>
@@ -100,10 +100,10 @@ const Offres = () => {
 
       {/* Atelier */}
       <section data-aos="fade-up" className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl font-extrabold bg-text text-purple-700 mb-6">Atelier : Trouver sa voie</h2>
+        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Atelier : Trouver sa voie</h2>
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
-            <img src="/offre4.jfif" alt="Illustration Atelier" className="w-full h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
+            <img src="/offre4.jfif" alt="Illustration Atelier" className="w-4/6 mx-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="md:w-1/2 text-gray-700">
             <p className="text-lg mb-4"><strong>3h intenses</strong> avec workbook pour ados ou personnes en reconversion.</p>

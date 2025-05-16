@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import { useRouter } from 'next/navigation'; 
+import Link from 'next/link';
 
 interface Answer {
   question: string;
@@ -12,7 +13,7 @@ interface Answer {
 
 const questions: Answer[] = [
   {
-    question: "Vous avez enfin dégagé du temps pour aller à votre séance de sport. En plein échauffement, vous recevez un appel urgent du dentiste pour décaler le rendez-vous d'un de ses enfants.",
+    question: "Vous avez enfin dégagé du temps pour aller à votre séance de sport. En plein échauffement, vous recevez un appel urgent du dentiste pour décaler le rendez-vous d'un de ses enfants. Comment réagiriez-vous ?",
     options: [
       "Vous décrochez et répondez : « C'est n'importe quoi ! Vous auriez pu prévenir plus tôt. Vous ne respectez pas du tout mon planning ! »",
       "Vous décrochez en pensant que « ce n'est pas si grave », qu'il faut gérer immédiatement la situation et que vous reviendrez plus tard. Vous arrangez même la secrétaire au bout du fil.",
@@ -44,28 +45,33 @@ interface ResultDetails {
   title: string;
   analysis: string;
   advice: string;
+  image: string;
 }
 
 const results: Record<'persecutor' | 'savior' | 'victim' | 'observer', ResultDetails> = {
   persecutor: {
     title: "Le Persécuteur",
     analysis: "Vous avez tendance à critiquer ou à accuser les autres.",
-    advice: "Essayez de comprendre les besoins des autres et de communiquer avec bienveillance."
+    advice: "Essayez de comprendre les besoins des autres et de communiquer avec bienveillance.",
+    image: '/persécuteur.png'
   },
   savior: {
     title: "Le Sauveur",
     analysis: "Vous cherchez souvent à aider même sans qu'on vous le demande.",
-    advice: "Apprenez à respecter les limites des autres et à vous concentrer sur vos propres besoins."
+    advice: "Apprenez à respecter les limites des autres et à vous concentrer sur vos propres besoins.",
+    image: '/sauveur.png'
   },
   victim: {
     title: "La Victime",
     analysis: "Vous vous sentez souvent impuissant ou maltraité.",
-    advice: "Travaillez sur votre confiance en vous et votre capacité à prendre des initiatives."
+    advice: "Travaillez sur votre confiance en vous et votre capacité à prendre des initiatives.",
+    image: '/victime.png'
   },
   observer: {
     title: "L'Observateur",
     analysis: "Vous préférez rester neutre et éviter les conflits.",
-    advice: "Essayez de participer activement et de prendre position lorsque nécessaire."
+    advice: "Essayez de participer activement et de prendre position lorsque nécessaire.",
+    image: '/observateur.png'
   }
 };
 
@@ -122,7 +128,8 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
     <div className="fixed inset-0 bg-light-gold/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white p-6 font-nunito-sans rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <h1 className="text-2xl text-center font-extrabold text-primary mb-4">Quel rôle jouez-vous dans vos relations ?</h1>
-        <p className="mb-6 mx-auto text-center">Découvrez si vous êtes plutôt Victime, Persécuteur, Sauveur ou Observateur selon le triangle de Karpman.</p>
+        <p className="mb-6 mx-auto text-center">Découvrez si vous êtes plutôt Victime, Persécuteur, Sauveur ou Observateur selon le triangle de Karpman.<br>
+        </br>Voici la situation :</p>
 
         {!isStarted ? (
           <div className="flex flex-col items-center">
@@ -161,15 +168,19 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
             {showModal && result && (
               <Modal onClose={resetQuiz}>
                 <h2 className="text-2xl font-extrabold font-gotu text-primary mb-4">{results[result].title}</h2>
+                <img
+                  src={results[result].image}
+                  alt={results[result].title}
+                  className="w-full max-w-xs mx-auto mb-4 rounded"
+                />
                 <p className="mb-4"><strong>Analyse :</strong> {results[result].analysis}</p>
                 <p className="mb-4"><strong>Piste :</strong> {results[result].advice}</p>
                 <p className="mb-4">Ce jeu est une première étape pour prendre conscience de vos comportements dans vos relations. Pour aller plus loin, contactez-moi !</p>
-                <button
-                  onClick={resetQuiz}
-                  className="px-4 py-2 bg-primary text-white rounded-full hover:bg-light-gold"
-                >
-                  Recommencer
-                </button>
+          <Link href="https://zcal.co/jeudemindset/presentationpro" target="_blank" rel="noopener noreferrer" >
+            <button className="px-6 py-2 bg-violet text-white rounded-full hover:bg-light-gold transition">
+              Contactez-moi
+            </button>
+          </Link>
               </Modal>
             )}
 

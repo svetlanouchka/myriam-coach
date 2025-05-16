@@ -8,8 +8,8 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-light-gold/50 backdrop-blur-md flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg max-w-lg w-full">
+    <div className="fixed h-screen inset-0 bg-light-gold/50 backdrop-blur-md flex items-center justify-center overflow-y-auto z-50">
+      <div className="bg-white p-6 rounded-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">
         {children}
         <button
           onClick={onClose}

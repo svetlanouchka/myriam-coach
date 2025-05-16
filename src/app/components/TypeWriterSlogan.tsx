@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
+import { BsMenuButtonFill } from 'react-icons/bs';
+import Link from 'next/link';
 
 const TypewriterSlogan: React.FC = () => {
   const lines = [
@@ -21,8 +23,10 @@ const TypewriterSlogan: React.FC = () => {
   const delayBetweenLines = 500;
 
   const [displayedLines, setDisplayedLines] = useState(["", "", "", ""]);
+  const [showButton, setShowButton] = useState(false);
   const revealLettersRef = useRef<NodeListOf<Element> | null>(null);
   const bestVersionRef = useRef<HTMLHeadingElement | null>(null);
+
 
   // Effet pour l'animation de frappe
   useEffect(() => {
@@ -30,7 +34,10 @@ const TypewriterSlogan: React.FC = () => {
     let index = 0;
 
     const typeLine = () => {
-      if (currentLine >= lines.length) return;
+      if (currentLine >= lines.length) {
+        setShowButton(true);
+        return
+        } ;
 
       const interval = setInterval(() => {
         setDisplayedLines((prevLines) => {
@@ -134,7 +141,7 @@ const TypewriterSlogan: React.FC = () => {
   }, [displayedLines]); // Dépendance sur displayedLines pour s'assurer que les éléments sont rendus
 
   const renderLine = (text: string, idx: number) => {
-    const className = `${fonts[idx]} text-4xl md:text-7xl/15 text-gold text-center p-2 transition-opacity duration-500`;
+    const className = `${fonts[idx]} sm:text-5xl md:text-6xl lg:text-7xl text-3xl text-gold text-center p-2 transition-opacity duration-500`;
 
     if (idx < 3) {
       return (
@@ -163,8 +170,15 @@ const TypewriterSlogan: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-primary space-y-4">
+    <div className="flex flex-col items-center justify-start lg:h-screen sm:h-[90vh] bg-primary space-y-4 px-4 pt-8 pb-8 sm:pt-16 sm:pb-4 mx-auto">
       {displayedLines.map((text, idx) => renderLine(text, idx))}
+      {showButton && (
+        <Link href="https://docs.google.com/forms/d/1n94YcGUDTIUSqxX3aGIC9Stlq9Fp5v9O_utr6TRDkwQ/viewform?edit_requested=true" target="_blank" rel="noopener noreferrer">
+          <button className="px-4 py-2 sm:px-6 sm:py-2 mt-4 sm:mt-6 bg-violet text-white rounded-full hover:bg-light-gold transition duration-300 cursor-pointer text-sm sm:text-base">
+            Découvrez votre archétype
+          </button>
+        </Link>
+      )}
     </div>
   );
 };

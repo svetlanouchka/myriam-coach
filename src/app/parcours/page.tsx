@@ -15,10 +15,10 @@ export default function Parcours() {
   }, []);
 
   return (
-    <div className="container mx-auto font-nunito-sans px-32 py-12 space-y-12 bg-white">
+    <div className="container mx-auto font-nunito-sans lg:px-32 lg:py-12 px-12 py-6 space-y-12 bg-white">
       {/* Section 1: Qui suis-je ? */}
       <section data-aos="fade-up" className="text-justify">
-        <h1 className="text-4xl font-titan-one font-bold text-violet pl-12 mb-6">Qui suis-je ?</h1>
+        <h1 className="text-4xl font-titan-one font-bold text-violet mx-auto text-center mb-6">Qui suis-je ?</h1>
         <div className="max-w-2xl mx-auto space-y-4 text-lg leading-relaxed text-gray-700">
           <p >Je suis Myriam, fondatrice de JeuDeMindset.</p>
           <p>Devenir coach en motivation n’était pas dans mes plans initiaux.</p>
@@ -67,7 +67,7 @@ export default function Parcours() {
         <img
           src="/motivation.jfif"
           alt="Symbole de motivation"
-          className="w-80 h-80 mx-auto mt-6 hover:transform hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg"
+          className="w-80 h-80 mx-auto mt-6 object-cover hover:transform hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg"
         />
       </section>
 
@@ -99,7 +99,7 @@ export default function Parcours() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link href="https://www.youtube.com/@jeudemindset" target="_blank">
             <button className="px-6 py-3 border-2 border-primary text-red-600 rounded-full hover:bg-violet hover:text-white transition transform hover:scale-105">
-              Découvrir sur YouTube
+              Découvrir la chaîne YouTube
             </button>
           </Link>
           <Link href="https://docs.google.com/forms/d/1n94YcGUDTIUSqxX3aGIC9Stlq9Fp5v9O_utr6TRDkwQ/viewform?edit_requested=true">

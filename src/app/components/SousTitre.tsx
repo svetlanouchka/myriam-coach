@@ -14,33 +14,37 @@ export default function SousTitre({ text }: SousTitreProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (svgRef.current) {
+    if (svgRef.current && window.innerWidth >= 640) { // Only run on sm+ screens
       const path = svgRef.current.querySelector('ellipse');
       if (path) {
-        const length = path.getTotalLength();
-        gsap.set(path, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-        });
+        try {
+          const length = path.getTotalLength();
+          gsap.set(path, {
+            strokeDasharray: length,
+            strokeDashoffset: length,
+          });
 
-        gsap.to(path, {
-          strokeDashoffset: 0,
-          duration: 1.5,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        });
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+          });
+        } catch (error) {
+          console.error('Error setting up SVG animation:', error);
+        }
       }
     }
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-violet">
+    <div className="flex flex-col items-center justify-start lg:min-h-[60vh] h-[50vh] bg-violet px-4 pt-8 sm:pt-16 pb-8 mx-auto">
       <div className="relative" ref={wrapperRef}>
-        <h2 className="text-3xl md:text-4xl font-gotu text-light-gold text-center font-bold px-10 m-10 py-6 z-10 relative">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-gotu text-gold text-center font-bold px-4 sm:px-10 m-4 sm:m-10 py-4 sm:py-6 z-10 relative">
           {text.split(',').map((phrase, index) => (
             <div key={index} className="m-2">
               {phrase.trim()}
@@ -50,7 +54,7 @@ export default function SousTitre({ text }: SousTitreProps) {
 
         <svg
           ref={svgRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className="absolute inset-0 w-full h-full pointer-events-none hidden sm:block"
           viewBox="0 0 400 200"
           preserveAspectRatio="xMidYMid meet"
         >
