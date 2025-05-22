@@ -66,7 +66,7 @@ const Header = () => {
         <nav className="hidden md:flex">    
             <ul className="flex space-x-6 ">
                 {navLinks.map((link) => {
-                    const isActive = pathname.startsWith(link.href);
+                    const isActive = (pathname ?? "").startsWith(link.href);
                     return (
                         <li key={link.name}>
                             <Link 
@@ -101,7 +101,7 @@ const Header = () => {
         <nav className="md:hidden bg-primary px-4 py-4">
           <ul className="flex flex-col space-y-4">
             {navLinks.map((link) => {
-              const isActive = pathname.startsWith(link.href);
+              const isActive = (pathname ?? "").startsWith(link.href);
               return (
                 <li key={link.name}>
                   <Link

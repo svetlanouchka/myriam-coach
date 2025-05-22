@@ -136,9 +136,13 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
       } else {
         throw new Error(data.error || 'Failed to subscribe');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       setEmailStatus('error');
-      setEmailError(error.message || 'Une erreur s’est produite. Veuillez réessayer.');
+      if (error instanceof Error) {
+        setEmailError(error.message || 'Une erreur s’est produite. Veuillez réessayer.');
+      } else {
+        setEmailError('Une erreur s’est produite. Veuillez réessayer.');
+      }
     }
   };
 

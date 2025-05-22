@@ -28,8 +28,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       status: 'subscribed',
     });
     return res.status(200).json({ success: true });
-  } catch (error: any) {
-    console.error('Mailchimp error:', error.response?.text || error.message);
-    return res.status(500).json({ error: 'Failed to subscribe. Please try again.' });
+  } catch (error: unknown) {
+    let errorMessage = 'Failed to subscribe. Please try again.';
+    if (typeof error === 'object' && error !== null) {
+      if ('response' in error && typeof (error as any).response?.text === 'string') {
+        console.error('Mailchimp error:', (error as any).response.text);
+      } else if ('message' in error && typeof (error as any).message === 'string') {
+        console.error('Mailchimp error:', (error as any).message);
+      } else {
+        console.error('Mailchimp error:', error);
+      }
+    } else {
+      console.error('Mailchimp error:', error);
+    }
+    return res.status(500).json({ error: errorMessage });
   }
 }
