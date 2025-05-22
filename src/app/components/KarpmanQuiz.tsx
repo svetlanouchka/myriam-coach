@@ -78,6 +78,11 @@ interface KarpmanQuizProps {
   onClose: () => void;
 }
 
+interface SubscribeResponse {
+  success?: boolean;
+  error?: string;
+}
+
 const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
   const router = useRouter();
   const [isStarted, setIsStarted] = useState(false);
@@ -98,7 +103,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       calculateResult(newAnswers);
-      setShowEmailForm(true); // Show email form instead of results
+      setShowEmailForm(true);
     }
   };
 
@@ -127,12 +132,17 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Server responded with status ${response.status}: ${text.slice(0, 100)}...`);
+      }
 
-      if (response.ok && data.success) {
+      const data: SubscribeResponse = await response.json();
+
+      if (data.success) {
         setEmailStatus('success');
         setShowEmailForm(false);
-        setShowModal(true); // Show results after successful email submission
+        setShowModal(true);
       } else {
         throw new Error(data.error || 'Failed to subscribe');
       }
