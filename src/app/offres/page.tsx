@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -35,7 +36,7 @@ const Offres = () => {
             <p className="mb-4">Pour kids (10-15 ans), adultes (16+), et groupes. Contactez-moi pour les groupes.</p>
             <p className="mb-4"><strong>Processus :</strong> Paiement → Test en ligne → Débrief (distanciel ou présentiel à Lyon).</p>
             <p className="mb-4 italic">Note : Pas de remboursement après le test.</p>
-            <a href="https://zcal.co/jeudemindset/SERUM" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
+            <a href="https://buy.stripe.com/7sI9De1gR62B5aMeUV" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
           </div>
         </div>
       </section>
@@ -64,14 +65,15 @@ const Offres = () => {
             <p className="mb-4 italic">Attention : Pas de solution miracle, mais des clés pour avancer.</p>
             <p className="mb-4"><strong>Processus :</strong> Paiement → Questionnaire (48h avant) → Rendez-vous.</p>
             <p className="mb-4 italic">Pas de remboursement sauf cas exceptionnel.</p>
-            <a href="https://zcal.co/jeudemindset/SPASA" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
+            <a href="https://buy.stripe.com/7sI9De1gR62B5aMeUV" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
           </div>
         </div>
       </section>
 
       {/* Offre 3 */}
       <section data-aos="fade-up" className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Transform’Actions : 90 jours pour tout changer</h2>
+        <h2 className="text-4xl text-center font-extrabold bg-text text-purple-700 mb-6">Transform’ 
+          Actions : 90 jours pour tout changer</h2>
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
             <img src="/offre3.jfif" alt="Illustration Transform’Actions" className="w-4/6 mx-auto h-auto rounded-md shadow-md hover:transform hover:scale-105 transition-transform duration-300" />
@@ -92,8 +94,15 @@ const Offres = () => {
               <li>Soutien WhatsApp</li>
             </ul>
             <p className="mb-4 italic">Garantie : Remboursée sous 7 jours si insatisfaite.</p>
-            <p className="mb-4">Disponible 3 fois/an. Suivez @jeudemindset pour les dates.</p>
-            <a href="https://zcal.co/jeudemindset/pretransformactions" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Réserver un appel gratuit</a>
+            <p className="mb-4">Disponible 3 fois/an. Suivez{' '}
+  <Link href="https://www.instagram.com/jeudemindset" target="_blank" rel="noopener noreferrer">
+    <span className="text-blue-600 hover:underline">Instagram</span>
+  </Link>{' '}
+  et {' '}
+  <Link href="https://www.linkedin.com/in/jeudemindset/" target="_blank" rel="noopener noreferrer">
+    <span className="text-blue-600 hover:underline">LinkedIn</span>
+  </Link>{' '} pour les dates.</p>
+            <a href="https://zcal.co/jeudemindset/pretransformaction" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Réserver un appel gratuit</a>
           </div>
         </div>
       </section>
@@ -108,8 +117,17 @@ const Offres = () => {
           <div className="md:w-1/2 text-gray-700">
             <p className="text-lg mb-4"><strong>3h intenses</strong> avec workbook pour ados ou personnes en reconversion.</p>
             <p className="mb-4">Contactez-moi pour plus d’infos.</p>
-            <p className="mb-4">D’autres ateliers à venir. Suivez @jeudemindset.</p>
-            <a href="mailto:votre@email.com" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Me contacter</a>
+            <p className="mb-4">
+  D’autres ateliers à venir. Suivez{' '}
+  <Link href="https://www.instagram.com/jeudemindset" target="_blank" rel="noopener noreferrer">
+    <span className="text-blue-600 hover:underline">Instagram</span>
+  </Link>{' '}
+  et {' '}
+  <Link href="https://www.linkedin.com/in/jeudemindset/" target="_blank" rel="noopener noreferrer">
+    <span className="text-blue-600 hover:underline">LinkedIn</span>
+  </Link>{' '}
+</p>
+            <a href="mailto:jeudemindset@gmail.com" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Me contacter</a>
           </div>
         </div>
       </section>

@@ -44,7 +44,7 @@ export default function SousTitre({ text }: SousTitreProps) {
   return (
     <div className="flex flex-col items-center justify-start lg:min-h-[60vh] h-[50vh] bg-violet px-4 pt-8 sm:pt-16 pb-8 mx-auto">
       <div className="relative" ref={wrapperRef}>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-gotu text-gold text-center font-bold px-4 sm:px-10 m-4 sm:m-10 py-4 sm:py-6 z-10 relative">
+        <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-3xl font-gotu text-gold text-center font-bold px-4 sm:px-10 m-4 sm:m-10 py-4 sm:py-6 z-10 relative">
           {text.split(',').map((phrase, index) => (
             <div key={index} className="m-2">
               {phrase.trim()}

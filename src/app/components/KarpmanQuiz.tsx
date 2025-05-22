@@ -1,9 +1,8 @@
-// components/KarpmanQuiz.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 interface Answer {
@@ -76,7 +75,12 @@ const results: Record<'persecutor' | 'savior' | 'victim' | 'observer', ResultDet
 };
 
 interface KarpmanQuizProps {
-  onClose: () => void; // Ajout d'une prop pour fermer le quiz
+  onClose: () => void;
+}
+
+interface SubscribeResponse {
+  success?: boolean;
+  error?: string;
 }
 
 const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
@@ -86,6 +90,10 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
   const [answers, setAnswers] = useState<(0 | 1 | 2 | 3)[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [result, setResult] = useState<'persecutor' | 'savior' | 'victim' | 'observer' | null>(null);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailStatus, setEmailStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleAnswer = (answerIndex: number) => {
     const newAnswers: (0 | 1 | 2 | 3)[] = [...answers, answerIndex as 0 | 1 | 2 | 3];
@@ -95,7 +103,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       calculateResult(newAnswers);
-      setShowModal(true);
+      setShowEmailForm(true);
     }
   };
 
@@ -112,12 +120,52 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
     setResult(dominantRole);
   };
 
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailStatus('loading');
+    setEmailError(null);
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Server responded with status ${response.status}: ${text.slice(0, 100)}...`);
+      }
+
+      const data: SubscribeResponse = await response.json();
+
+      if (data.success) {
+        setEmailStatus('success');
+        setShowEmailForm(false);
+        setShowModal(true);
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+    } catch (error: unknown) {
+      setEmailStatus('error');
+      if (error instanceof Error) {
+        setEmailError(error.message || 'Une erreur s’est produite. Veuillez réessayer.');
+      } else {
+        setEmailError('Une erreur s’est produite. Veuillez réessayer.');
+      }
+    }
+  };
+
   const resetQuiz = () => {
     setCurrentQuestion(0);
     setAnswers([]);
     setShowModal(false);
+    setShowEmailForm(false);
     setResult(null);
-    onClose(); // Ferme le quiz quand on reset
+    setEmail('');
+    setEmailStatus('idle');
+    setEmailError(null);
+    onClose();
   };
 
   const startQuiz = () => {
@@ -128,8 +176,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
     <div className="fixed inset-0 bg-light-gold/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white p-6 font-nunito-sans rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <h1 className="text-2xl text-center font-extrabold text-primary mb-4">Quel rôle jouez-vous dans vos relations ?</h1>
-        <p className="mb-6 mx-auto text-center">Découvrez si vous êtes plutôt Victime, Persécuteur, Sauveur ou Observateur selon le triangle de Karpman.<br>
-        </br>Voici la situation :</p>
+        <p className="mb-6 mx-auto text-center">Découvrez si vous êtes plutôt Victime, Persécuteur, Sauveur ou Observateur selon le triangle de Karpman.<br /><br />Voici la situation :</p>
 
         {!isStarted ? (
           <div className="flex flex-col items-center">
@@ -148,7 +195,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
           </div>
         ) : (
           <>
-            {currentQuestion < questions.length && (
+            {currentQuestion < questions.length && !showEmailForm && (
               <div>
                 <h2 className="text-xl p-5 mb-2">{questions[currentQuestion].question}</h2>
                 <div className="space-y-4 p-5">
@@ -165,6 +212,40 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
               </div>
             )}
 
+            {showEmailForm && (
+              <div className="p-5">
+                <h2 className="text-xl font-bold text-primary mb-4 text-center">
+                  Entrez votre email pour voir vos résultats
+                </h2>
+                <p className="mb-4 text-center text-gray-600">
+                  Recevez des conseils personnalisés directement dans votre boîte mail !
+                </p>
+                <form onSubmit={handleEmailSubmit} className="flex flex-col items-center">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Votre adresse email"
+                    className="w-full max-w-md p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-violet"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={emailStatus === 'loading'}
+                    className="px-6 py-3 bg-violet text-white rounded-full hover:bg-light-gold disabled:opacity-50"
+                  >
+                    {emailStatus === 'loading' ? 'Envoi...' : 'Voir mes résultats'}
+                  </button>
+                  {emailStatus === 'error' && (
+                    <p className="mt-2 text-red-600">{emailError}</p>
+                  )}
+                  {emailStatus === 'success' && (
+                    <p className="mt-2 text-green-600">Inscription réussie ! Voici vos résultats.</p>
+                  )}
+                </form>
+              </div>
+            )}
+
             {showModal && result && (
               <Modal onClose={resetQuiz}>
                 <h2 className="text-2xl font-extrabold font-gotu text-primary mb-4">{results[result].title}</h2>
@@ -176,15 +257,15 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
                 <p className="mb-4"><strong>Analyse :</strong> {results[result].analysis}</p>
                 <p className="mb-4"><strong>Piste :</strong> {results[result].advice}</p>
                 <p className="mb-4">Ce jeu est une première étape pour prendre conscience de vos comportements dans vos relations. Pour aller plus loin, contactez-moi !</p>
-          <Link href="https://zcal.co/jeudemindset/presentationpro" target="_blank" rel="noopener noreferrer" >
-            <button className="px-6 py-2 bg-violet text-white rounded-full hover:bg-light-gold transition">
-              Contactez-moi
-            </button>
-          </Link>
+                <Link href="https://zcal.co/jeudemindset/presentationpro" target="_blank" rel="noopener noreferrer">
+                  <button className="px-6 py-2 bg-violet text-white rounded-full hover:bg-light-gold transition">
+                    Contactez-moi
+                  </button>
+                </Link>
               </Modal>
             )}
 
-            {!showModal && currentQuestion >= questions.length ? null : (
+            {!showModal && !showEmailForm && currentQuestion >= questions.length ? null : (
               <button
                 onClick={() => router.back()}
                 className="px-4 py-2 text-gold cursor-pointer"
