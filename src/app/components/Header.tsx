@@ -12,7 +12,7 @@ const navLinks = [
     { name: "Contact", href: "/contact" },
     { name: "Quizz", href: "/quizz" },
     { name: "Offres", href: "/offres" },
-    { name: "Temoignages", href: "/temoignages" }];
+    { name: "Témoignages", href: "/temoignages" }];
 
 const Header = () => {
 
