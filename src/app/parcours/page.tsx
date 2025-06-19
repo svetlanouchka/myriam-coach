@@ -21,7 +21,7 @@ export default function Parcours() {
         <h1 className="text-4xl font-titan-one font-bold text-violet mx-auto text-center mb-6">Qui suis-je ?</h1>
         <div className="max-w-2xl mx-auto space-y-4 text-lg leading-relaxed text-gray-700">
           <p >Je suis Myriam, fondatrice de JeuDeMindset.</p>
-          <p>Devenir coach en motivation n’était pas dans mes plans initiaux.</p>
+          <p>Devenir coach mindset n’était pas dans mes plans initiaux.</p>
           <div className="max-w-3xl mx-auto space-y-4 text-lg leading-relaxed text-gray-700">
           <p>
             Mon parcours a débuté dans le monde associatif, où <b>j’ai passé 15 ans à accompagner des femmes âgées de 14 à 40 ans.</b>
