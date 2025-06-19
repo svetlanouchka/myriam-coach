@@ -6,6 +6,18 @@ import Image from 'next/image';
 
 const testimonials = [
   {
+    type: 'image',
+    images: [
+      "/1myriam.JPG",
+      "/2myriam.JPG",
+      "/3myriam.JPG",
+      "/4myriam.JPG",
+      "/5myriam.JPG",
+      "/6myriam.JPG",
+    ],
+    name: "Galerie d'images",
+  },
+  {
     type: 'text',
     text: "Tres bonne experience a travers cette session SERUM. Ca a confirme ce que j'avais commence a mettre en place dans mes nouveaux objectifs de vie. Mon accompagnatrice a ete geniale. Elle m'a accompagne lors du test mais aussi pour la comprehension des resultats. Elle m'a explique des choses que je n'aurais pas vues sans elle. Je recommande vraiment cette session et l'accompagnatrice qui a ete tres professionnelle et a l'ecoute.",
     name: "Samia",
@@ -35,18 +47,7 @@ const testimonials = [
     text: "Myriam m'a propose de faire une modelisation de strategie autour du passage a l'action pour lutter contre la procrastination. Je n'y avais pas pense. Apres les 2 sessions j'ai eu le tilt dont j'avais besoin.",
     name: "Marie",
   },
-  {
-    type: 'image',
-    images: [
-      "/1myriam.jpg",
-      "/2myriam.jpg",
-      "/3myriam.jpg",
-      "/4myriam.jpg",
-      "/5myriam.jpg",
-      "/6myriam.jpg",
-    ],
-    name: "Galerie d'images",
-  },
+  
 ];
 
 export default function Testimonials() {

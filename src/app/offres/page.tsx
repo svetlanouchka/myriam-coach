@@ -36,7 +36,7 @@ const Offres = () => {
             <p className="mb-4">Pour kids (10-15 ans), adultes (16+), et groupes. Contactez-moi pour les groupes.</p>
             <p className="mb-4"><strong>Processus :</strong> Paiement → Test en ligne → Débrief (distanciel ou présentiel à Lyon).</p>
             <p className="mb-4 italic">Note : Pas de remboursement après le test.</p>
-            <a href="https://buy.stripe.com/7sI9De1gR62B5aMeUV" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
+            <a href="https://buy.stripe.com/dR6dTue3Dez7dHi3cc" className="inline-block bg-purple-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-800 transition">Acheter maintenant</a>
           </div>
         </div>
       </section>

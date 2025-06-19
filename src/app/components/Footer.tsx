@@ -11,7 +11,10 @@ const Footer: React.FC = () => {
           <div className="mb-4">
             {/* Placeholder pour le logo - remplacez par votre image */}
             <Link href="/">
-              <span className="text-2xl font-bold">Myriam Saï, Coach en Motivations Profondes</span>
+              <div className="flex flex-col">
+              <span className="text-2xl font-bold">Myriam Saï</span>
+              <span className="text-xl font-bold">Profiling | Modeling | Coaching</span>
+              </div>
               <img src="/logo_slogan.png" alt="Logo JeuDeMindset" className="w-64 mt-2" />
             </Link>
           </div>
@@ -33,7 +36,7 @@ const Footer: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/quiz" className="hover:text-gray-300">
+              <Link href="/quizz" className="hover:text-gray-300">
                 Quiz Karpman
               </Link>
             </li>
