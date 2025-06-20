@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       status: 'subscribed',
     });
     return res.status(200).json({ success: true, message: 'Inscription réussie' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage = 'Failed to subscribe. Please try again.';
     console.error('Raw Mailchimp error:', JSON.stringify(error, null, 2));
 
@@ -89,7 +89,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // Handle MailchimpError with response object
     else if (typeof error === 'object' && error !== null && 'response' in error) {
       const mailchimpError = error as MailchimpError;
-      let parsedBody: any = mailchimpError.response?.body;
+      let parsedBody: { title?: string; detail?: string; status?: number } | undefined = mailchimpError.response?.body;
 
       // Try parsing response.text as JSON if body is not set
       if (!parsedBody && mailchimpError.response?.text) {
@@ -103,13 +103,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       console.error('Mailchimp error (full response):', {
         text: mailchimpError.response?.text,
         body: parsedBody,
-        status: parsedBody?.status || mailchimpError.response?.body?.status,
+        status: parsedBody?.status ?? mailchimpError.response?.body?.status,
       });
 
       if (
-        parsedBody?.title?.toLowerCase().includes('member exists') ||
-        parsedBody?.detail?.toLowerCase().includes('already a list member') ||
-        mailchimpError.response?.text?.toLowerCase().includes('member exists')
+        (parsedBody?.title && parsedBody.title.toLowerCase().includes('member exists')) ||
+        (parsedBody?.detail && parsedBody.detail.toLowerCase().includes('already a list member')) ||
+        (mailchimpError.response?.text && mailchimpError.response.text.toLowerCase().includes('member exists'))
       ) {
         console.log('Email already subscribed:', email);
         return res.status(200).json({ success: true, message: 'Vous êtes déjà inscrit avec ce mail' });
