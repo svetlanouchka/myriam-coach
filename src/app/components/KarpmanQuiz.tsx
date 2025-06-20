@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -81,6 +81,7 @@ interface KarpmanQuizProps {
 interface SubscribeResponse {
   success?: boolean;
   error?: string;
+  message?: string;
 }
 
 const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
@@ -94,6 +95,18 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [emailStatus, setEmailStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [emailSuccessMessage, setEmailSuccessMessage] = useState<string | null>(null);
+
+  // Delay showing modal to display success message
+  useEffect(() => {
+    if (emailStatus === 'success' && emailSuccessMessage) {
+      const timer = setTimeout(() => {
+        setShowEmailForm(false);
+        setShowModal(true);
+      }, 2000); // Show message for 2 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [emailStatus, emailSuccessMessage]);
 
   const handleAnswer = (answerIndex: number) => {
     const newAnswers: (0 | 1 | 2 | 3)[] = [...answers, answerIndex as 0 | 1 | 2 | 3];
@@ -108,15 +121,15 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
   };
 
   const calculateResult = (finalAnswers: (0 | 1 | 2 | 3)[]) => {
-    const counts = { 0: 0, 1: 0, 2: 0, 3: 0 };
+    const counts: { [key: number]: number } = { 0: 0, 1: 0, 2: 0, 3: 0 };
     finalAnswers.forEach((answer: 0 | 1 | 2 | 3) => counts[answer]++);
-    
+
     const maxCount = Math.max(...Object.values(counts));
-    const dominantRole = 
+    const dominantRole =
       counts[0] === maxCount ? 'persecutor' :
       counts[1] === maxCount ? 'savior' :
       counts[2] === maxCount ? 'victim' : 'observer';
-    
+
     setResult(dominantRole);
   };
 
@@ -124,6 +137,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
     e.preventDefault();
     setEmailStatus('loading');
     setEmailError(null);
+    setEmailSuccessMessage(null);
 
     try {
       const response = await fetch('/api/subscribe', {
@@ -132,27 +146,44 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
         body: JSON.stringify({ email }),
       });
 
+      const text = await response.text();
+      console.log('Raw API response:', text);
+
       if (!response.ok) {
-        const text = await response.text();
-        throw new Error(`Server responded with status ${response.status}: ${text.slice(0, 100)}...`);
+        let errorData;
+        try {
+          errorData = JSON.parse(text);
+        } catch {
+          errorData = { error: text };
+        }
+        console.error('API error:', { status: response.status, data: errorData });
+        throw new Error(`Server responded with status ${response.status}: ${errorData.error || 'Unknown error'}`);
       }
 
-      const data: SubscribeResponse = await response.json();
+      const data: SubscribeResponse = JSON.parse(text);
+      console.log('Parsed API response:', data);
 
       if (data.success) {
         setEmailStatus('success');
-        setShowEmailForm(false);
-        setShowModal(true);
+        setEmailSuccessMessage(data.message || 'Inscription réussie !');
       } else {
         throw new Error(data.error || 'Failed to subscribe');
       }
     } catch (error: unknown) {
       setEmailStatus('error');
+      let errorMessage = 'Une erreur s’est produite. Veuillez réessayer.';
       if (error instanceof Error) {
-        setEmailError(error.message || 'Une erreur s’est produite. Veuillez réessayer.');
-      } else {
-        setEmailError('Une erreur s’est produite. Veuillez réessayer.');
+        console.error('Submission error:', error.message);
+        errorMessage = error.message;
+        if (error.message.includes('Valid email is required')) {
+          errorMessage = 'Veuillez entrer un email valide.';
+        } else if (error.message.includes('Server configuration error')) {
+          errorMessage = 'Erreur de configuration du serveur. Contactez l’administrateur.';
+        } else if (error.message.includes('Bad Request')) {
+          errorMessage = 'Erreur lors de l’inscription. Veuillez vérifier votre email ou réessayer plus tard.';
+        }
       }
+      setEmailError(errorMessage);
     }
   };
 
@@ -165,6 +196,7 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
     setEmail('');
     setEmailStatus('idle');
     setEmailError(null);
+    setEmailSuccessMessage(null);
     onClose();
   };
 
@@ -236,11 +268,11 @@ const KarpmanQuiz: React.FC<KarpmanQuizProps> = ({ onClose }) => {
                   >
                     {emailStatus === 'loading' ? 'Envoi...' : 'Voir mes résultats'}
                   </button>
-                  {emailStatus === 'error' && (
+                  {emailStatus === 'error' && emailError && (
                     <p className="mt-2 text-red-600">{emailError}</p>
                   )}
-                  {emailStatus === 'success' && (
-                    <p className="mt-2 text-green-600">Inscription réussie ! Voici vos résultats.</p>
+                  {emailStatus === 'success' && emailSuccessMessage && (
+                    <p className="mt-2 text-green-600">{emailSuccessMessage}</p>
                   )}
                 </form>
               </div>
